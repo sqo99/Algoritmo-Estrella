@@ -36,9 +36,6 @@ public class Algoritmo_Estrella {
         System.out.println("");
         Estrella estrella=new Estrella(matriz,matriz[2][0],matriz[2][4]);
         estrella.busquedaEstrella();
-        System.out.println("Matriz después del recorrido");
-        imprimirMatriz(matriz);
-        System.out.println("");
     }
     
     public static void imprimirMatriz(Nodo matriz[][]){
@@ -49,11 +46,6 @@ public class Algoritmo_Estrella {
             }
             System.out.println();
         }
-    }
-    
-    public static void imprimirListas(Estrella e){
-        LinkedList<Nodo> abiertos;
-        LinkedList<Nodo> cerrados;
-    }
+    }    
     
 }
