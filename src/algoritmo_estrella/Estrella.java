@@ -23,17 +23,9 @@ public class Estrella {
         this.abiertos=new LinkedList();
         this.cerrados=new LinkedList();
     }
-
-    public LinkedList<Nodo> getAbiertos() {
-        return abiertos;
-    }
-
-    public LinkedList<Nodo> getCerrados() {
-        return cerrados;
-    }
     
     // Implementación del algoritmo estrella. 
-    public void busquedaEstrella(){
+    public LinkedList<Nodo> busquedaEstrella(){
         int i,j;
         int costoA=10;
         int costoD=14;
@@ -229,6 +221,7 @@ public class Estrella {
         imprimirListas(r,c);
         imprimirMatriz();
         System.out.println("\n");
+        return backTracking();
     }
     
     public int distanciaManhattan(Nodo n1, Nodo n2){
@@ -243,28 +236,30 @@ public class Estrella {
         }
         return menor;
     }
-    /*
+    
     // Implementación del backtracking para obtener la ruta.
     public LinkedList<Nodo> backTracking(){
         // Creamos una lista (ruta) donde guardaremos la ruta obtenida.
         LinkedList<Nodo> ruta=new LinkedList();
         // Añadimos a la lista el último nodo adyacente en w, del último nodo
         // en la lista v, ya que en esa posición siempre quedará el nodo de salida.
-        ruta.add(v.getLast().getW().getLast());
+        ruta.add(cerrados.getLast());
+        //ruta.add(cerrados.getLast().getP());
         // Ejecutamos un ciclo que recorrerá la lista v de fin a inicio.
-        for (int i = v.size()-1; i > -1; i--) {
+        for (int i = cerrados.size()-1; i > 0; i--) {
             // Verificamos si la lista de adyacente w en cada nodo v(i),
             // contiene al último nodo ingresado a la ruta.            
-            if(v.get(i).getW().contains(ruta.getLast())){
+            if(cerrados.get(i)==ruta.getLast()){
                 // Añadimos a la ruta el nodo v(i).
-                ruta.add(v.get(i));
+                ruta.add(cerrados.get(i).getP());
             }
         }
         // Retornamos la ruta obtenida.
         return ruta;
-    }*/
+    }
     
     public void imprimirListas(int r, int c){
+        System.out.println("------------------------");
         System.out.println("Posición actual: ("+r+","+c+")");
         //System.out.println("Lista de abiertos");
         System.out.println("Abiertos\tP");
