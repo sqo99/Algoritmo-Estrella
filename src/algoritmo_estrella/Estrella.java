@@ -286,7 +286,12 @@ public class Estrella {
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
                 Nodo n=matriz[i][j];
-                System.out.print("("+n.getX()+","+n.getY()+")"+"|"+n.getTipo()+"|"+n.getG()+"|"+n.getH()+"|"+n.getF()+"\t");
+                System.out.printf("(%d,%d)|%2c|%2d|%2d|%2d\t",n.getX(),n.getY(),n.getTipo(),n.getG(),n.getH(),n.getF());
+                /*if(n.getF()!=0)
+                    System.out.print("("+n.getX()+","+n.getY()+")"+"|"+n.getTipo()+"|"+n.getG()+"|"+n.getH()+"|"+n.getF()+"\t");
+                else
+                    System.out.print("("+n.getX()+","+n.getY()+")"+"|"+n.getTipo()+"|"+n.getG()+"0|"+n.getH()+"0|"+n.getF()+"0\t");
+                */
             }
             System.out.println();
         }
