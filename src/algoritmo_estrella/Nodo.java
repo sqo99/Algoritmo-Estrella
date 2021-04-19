@@ -19,10 +19,6 @@ public class Nodo {
 
     public Nodo(char tipo) {
         this.tipo = tipo;
-        this.F = 0;
-        this.G = 0;
-        this.H = 0;
-        this.p = null;
     } 
 
     public char getTipo() {

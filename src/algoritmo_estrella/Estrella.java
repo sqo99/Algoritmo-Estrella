@@ -23,6 +23,14 @@ public class Estrella {
         this.abiertos=new LinkedList();
         this.cerrados=new LinkedList();
     }
+
+    public LinkedList<Nodo> getAbiertos() {
+        return abiertos;
+    }
+
+    public LinkedList<Nodo> getCerrados() {
+        return cerrados;
+    }
     
     // Implementación del algoritmo estrella. 
     public void busquedaEstrella(){
@@ -133,7 +141,7 @@ public class Estrella {
     }
     
     public int distanciaManhattan(Nodo n1, Nodo n2){
-        return Math.abs(n1.getX()-n2.getX())+Math.abs(n1.getY()-n2.getY())*10;
+        return (Math.abs(n1.getX()-n2.getX())+Math.abs(n1.getY()-n2.getY()))*10;
     }
     /*
     // Implementación del backtracking para obtener la ruta.

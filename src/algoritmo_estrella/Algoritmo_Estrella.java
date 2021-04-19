@@ -1,5 +1,7 @@
 package algoritmo_estrella;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author Suriel
@@ -47,6 +49,11 @@ public class Algoritmo_Estrella {
             }
             System.out.println();
         }
+    }
+    
+    public static void imprimirListas(Estrella e){
+        LinkedList<Nodo> abiertos;
+        LinkedList<Nodo> cerrados;
     }
     
 }
