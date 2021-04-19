@@ -40,7 +40,7 @@ public class Estrella {
         int r=entrada.getX();
         int c=entrada.getY();
         cerrados.add(matriz[r][c]);
-        while(matriz[r][c] != salida){
+        while(true){
             //abiertos.add(matriz[r][c]);
             // Nos movemos hacia la esquina superior izquierda.
             i=r-1;
@@ -54,10 +54,13 @@ public class Estrella {
                     matriz[i][j].setH(distanciaManhattan(matriz[i][j], salida));
                     matriz[i][j].setF(matriz[i][j].getG()+matriz[i][j].getH());
                     abiertos.add(matriz[i][j]);
+                    if(matriz[i][j] == salida)
+                        break;
                 }else if(abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
                     int aux=matriz[i][j].getG()+costoD;
                     if(aux<matriz[i][j].getG()){
-                        
+                        matriz[i][j].setG(aux);
+                        matriz[i][j].setP(matriz[r][c]);
                     }
                 }
             }
@@ -65,84 +68,147 @@ public class Estrella {
             i=r-1;
             j=c;
             if((i>-1 && i<matriz.length) && (j>-1 && j<matriz[0].length)){
-                if(!abiertos.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
+                // Comprobamos si el nodo en la posición i,j ha sido visitado y si es distinto de una pared.
+                if(!abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
                     matriz[i][j].setP(matriz[r][c]);
-                    matriz[i][j].setG(costoA);
+                    matriz[i][j].setG(costoD);
                     matriz[i][j].setH(distanciaManhattan(matriz[i][j], salida));
                     matriz[i][j].setF(matriz[i][j].getG()+matriz[i][j].getH());
                     abiertos.add(matriz[i][j]);
+                    if(matriz[i][j] == salida)
+                        break;
+                }else if(abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
+                    int aux=matriz[i][j].getG()+costoD;
+                    if(aux<matriz[i][j].getG()){
+                        matriz[i][j].setG(aux);
+                        matriz[i][j].setP(matriz[r][c]);
+                    }
                 }
             }
             // Nos movemos hacia la esquina superior derecha.
             i=r-1;
             j=c+1;
             if((i>-1 && i<matriz.length) && (j>-1 && j<matriz[0].length)){
-                if(!abiertos.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
+                // Comprobamos si el nodo en la posición i,j ha sido visitado y si es distinto de una pared.
+                if(!abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
                     matriz[i][j].setP(matriz[r][c]);
                     matriz[i][j].setG(costoD);
                     matriz[i][j].setH(distanciaManhattan(matriz[i][j], salida));
                     matriz[i][j].setF(matriz[i][j].getG()+matriz[i][j].getH());
                     abiertos.add(matriz[i][j]);
+                    if(matriz[i][j] == salida)
+                        break;
+                }else if(abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
+                    int aux=matriz[i][j].getG()+costoD;
+                    if(aux<matriz[i][j].getG()){
+                        matriz[i][j].setG(aux);
+                        matriz[i][j].setP(matriz[r][c]);
+                    }
                 }
             }
             // Ahora nos movemos hacia la derecha.
             i=r;
             j=c+1;
             if((i>-1 && i<matriz.length) && (j>-1 && j<matriz[0].length)){
-                if(!abiertos.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
+                // Comprobamos si el nodo en la posición i,j ha sido visitado y si es distinto de una pared.
+                if(!abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
                     matriz[i][j].setP(matriz[r][c]);
-                    matriz[i][j].setG(costoA);
+                    matriz[i][j].setG(costoD);
                     matriz[i][j].setH(distanciaManhattan(matriz[i][j], salida));
                     matriz[i][j].setF(matriz[i][j].getG()+matriz[i][j].getH());
                     abiertos.add(matriz[i][j]);
+                    if(matriz[i][j] == salida)
+                        break;
+                }else if(abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
+                    int aux=matriz[i][j].getG()+costoD;
+                    if(aux<matriz[i][j].getG()){
+                        matriz[i][j].setG(aux);
+                        matriz[i][j].setP(matriz[r][c]);
+                    }
                 }
             }
             // Ahora nos movemos hacia la esquina inferior derecha.
             i=r+1;
             j=c+1;
             if((i>-1 && i<matriz.length) && (j>-1 && j<matriz[0].length)){
-                if(!abiertos.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
+                // Comprobamos si el nodo en la posición i,j ha sido visitado y si es distinto de una pared.
+                if(!abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
                     matriz[i][j].setP(matriz[r][c]);
                     matriz[i][j].setG(costoD);
                     matriz[i][j].setH(distanciaManhattan(matriz[i][j], salida));
                     matriz[i][j].setF(matriz[i][j].getG()+matriz[i][j].getH());
                     abiertos.add(matriz[i][j]);
+                    if(matriz[i][j] == salida)
+                        break;
+                }else if(abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
+                    int aux=matriz[i][j].getG()+costoD;
+                    if(aux<matriz[i][j].getG()){
+                        matriz[i][j].setG(aux);
+                        matriz[i][j].setP(matriz[r][c]);
+                    }
                 }
             }
             // Ahora hacia abajo.
             i=r+1;
             j=c;
             if((i>-1 && i<matriz.length) && (j>-1 && j<matriz[0].length)){
-                if(!abiertos.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
+                // Comprobamos si el nodo en la posición i,j ha sido visitado y si es distinto de una pared.
+                if(!abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
                     matriz[i][j].setP(matriz[r][c]);
-                    matriz[i][j].setG(costoA);
+                    matriz[i][j].setG(costoD);
                     matriz[i][j].setH(distanciaManhattan(matriz[i][j], salida));
                     matriz[i][j].setF(matriz[i][j].getG()+matriz[i][j].getH());
                     abiertos.add(matriz[i][j]);
+                    if(matriz[i][j] == salida)
+                        break;
+                }else if(abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
+                    int aux=matriz[i][j].getG()+costoD;
+                    if(aux<matriz[i][j].getG()){
+                        matriz[i][j].setG(aux);
+                        matriz[i][j].setP(matriz[r][c]);
+                    }
                 }
             }
             // Ahora nos movemos hacia la esquina inferior izquierda.
             i=r+1;
             j=c-1;
             if((i>-1 && i<matriz.length) && (j>-1 && j<matriz[0].length)){
-                if(!abiertos.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
+                // Comprobamos si el nodo en la posición i,j ha sido visitado y si es distinto de una pared.
+                if(!abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
                     matriz[i][j].setP(matriz[r][c]);
                     matriz[i][j].setG(costoD);
                     matriz[i][j].setH(distanciaManhattan(matriz[i][j], salida));
                     matriz[i][j].setF(matriz[i][j].getG()+matriz[i][j].getH());
                     abiertos.add(matriz[i][j]);
+                    if(matriz[i][j] == salida)
+                        break;
+                }else if(abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
+                    int aux=matriz[i][j].getG()+costoD;
+                    if(aux<matriz[i][j].getG()){
+                        matriz[i][j].setG(aux);
+                        matriz[i][j].setP(matriz[r][c]);
+                    }
                 }
             }
             // Ahora nos movemos hacia la izquierda.
             i=r;
             j=c-1;
             if((i>-1 && i<matriz.length) && (j>-1 && j<matriz[0].length)){
-                if(!abiertos.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
+                // Comprobamos si el nodo en la posición i,j ha sido visitado y si es distinto de una pared.
+                if(!abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
                     matriz[i][j].setP(matriz[r][c]);
-                    matriz[i][j].setG(costoA);
+                    matriz[i][j].setG(costoD);
                     matriz[i][j].setH(distanciaManhattan(matriz[i][j], salida));
                     matriz[i][j].setF(matriz[i][j].getG()+matriz[i][j].getH());
                     abiertos.add(matriz[i][j]);
+                    if(matriz[i][j] == salida)
+                        break;
+                }else if(abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
+                    int aux=matriz[i][j].getG()+costoD;
+                    if(aux<matriz[i][j].getG()){
+                        matriz[i][j].setG(aux);
+                        matriz[i][j].setP(matriz[r][c]);
+                    }
                 }
             }
             //abiertos.remove(matriz[r][c]);
