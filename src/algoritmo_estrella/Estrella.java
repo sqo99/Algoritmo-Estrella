@@ -71,14 +71,14 @@ public class Estrella {
                 // Comprobamos si el nodo en la posición i,j ha sido visitado y si es distinto de una pared.
                 if(!abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
                     matriz[i][j].setP(matriz[r][c]);
-                    matriz[i][j].setG(costoD);
+                    matriz[i][j].setG(costoA);
                     matriz[i][j].setH(distanciaManhattan(matriz[i][j], salida));
                     matriz[i][j].setF(matriz[i][j].getG()+matriz[i][j].getH());
                     abiertos.add(matriz[i][j]);
                     if(matriz[i][j] == salida)
                         break;
                 }else if(abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
-                    int aux=matriz[i][j].getG()+costoD;
+                    int aux=matriz[i][j].getG()+costoA;
                     if(aux<matriz[i][j].getG()){
                         matriz[i][j].setG(aux);
                         matriz[i][j].setP(matriz[r][c]);
@@ -113,14 +113,14 @@ public class Estrella {
                 // Comprobamos si el nodo en la posición i,j ha sido visitado y si es distinto de una pared.
                 if(!abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
                     matriz[i][j].setP(matriz[r][c]);
-                    matriz[i][j].setG(costoD);
+                    matriz[i][j].setG(costoA);
                     matriz[i][j].setH(distanciaManhattan(matriz[i][j], salida));
                     matriz[i][j].setF(matriz[i][j].getG()+matriz[i][j].getH());
                     abiertos.add(matriz[i][j]);
                     if(matriz[i][j] == salida)
                         break;
                 }else if(abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
-                    int aux=matriz[i][j].getG()+costoD;
+                    int aux=matriz[i][j].getG()+costoA;
                     if(aux<matriz[i][j].getG()){
                         matriz[i][j].setG(aux);
                         matriz[i][j].setP(matriz[r][c]);
@@ -155,14 +155,14 @@ public class Estrella {
                 // Comprobamos si el nodo en la posición i,j ha sido visitado y si es distinto de una pared.
                 if(!abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
                     matriz[i][j].setP(matriz[r][c]);
-                    matriz[i][j].setG(costoD);
+                    matriz[i][j].setG(costoA);
                     matriz[i][j].setH(distanciaManhattan(matriz[i][j], salida));
                     matriz[i][j].setF(matriz[i][j].getG()+matriz[i][j].getH());
                     abiertos.add(matriz[i][j]);
                     if(matriz[i][j] == salida)
                         break;
                 }else if(abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
-                    int aux=matriz[i][j].getG()+costoD;
+                    int aux=matriz[i][j].getG()+costoA;
                     if(aux<matriz[i][j].getG()){
                         matriz[i][j].setG(aux);
                         matriz[i][j].setP(matriz[r][c]);
@@ -197,14 +197,14 @@ public class Estrella {
                 // Comprobamos si el nodo en la posición i,j ha sido visitado y si es distinto de una pared.
                 if(!abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
                     matriz[i][j].setP(matriz[r][c]);
-                    matriz[i][j].setG(costoD);
+                    matriz[i][j].setG(costoA);
                     matriz[i][j].setH(distanciaManhattan(matriz[i][j], salida));
                     matriz[i][j].setF(matriz[i][j].getG()+matriz[i][j].getH());
                     abiertos.add(matriz[i][j]);
                     if(matriz[i][j] == salida)
                         break;
                 }else if(abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
-                    int aux=matriz[i][j].getG()+costoD;
+                    int aux=matriz[i][j].getG()+costoA;
                     if(aux<matriz[i][j].getG()){
                         matriz[i][j].setG(aux);
                         matriz[i][j].setP(matriz[r][c]);
@@ -219,8 +219,16 @@ public class Estrella {
             c=cerrados.getLast().getY();
             imprimirListas(r,c);
             imprimirMatriz();
+            System.out.println("\n");
         }
-        
+        Nodo menor=buscarFmenor();
+        cerrados.add(menor);
+        abiertos.remove(menor);
+        r=cerrados.getLast().getX();
+        c=cerrados.getLast().getY();
+        imprimirListas(r,c);
+        imprimirMatriz();
+        System.out.println("\n");
     }
     
     public int distanciaManhattan(Nodo n1, Nodo n2){
@@ -258,7 +266,7 @@ public class Estrella {
     
     public void imprimirListas(int r, int c){
         System.out.println("Posición actual: ("+r+","+c+")");
-        System.out.println("Lista de abiertos");
+        //System.out.println("Lista de abiertos");
         System.out.println("Abiertos\tP");
         for (int i = 0; i < abiertos.size(); i++) {
             Nodo n=abiertos.get(i);
@@ -267,7 +275,7 @@ public class Estrella {
             else
                 System.out.println("("+n.getX()+","+n.getY()+")");
         }
-        System.out.println("Lista de cerrados");
+        //System.out.println("Lista de cerrados");
         System.out.println("Cerrados\tP");
         for (int i = 0; i < cerrados.size(); i++) {
             Nodo n=cerrados.get(i);
