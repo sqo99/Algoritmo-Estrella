@@ -35,14 +35,16 @@ public class Algoritmo_Estrella {
         imprimirMatriz(matriz);
         System.out.println("\n");
         Estrella estrella=new Estrella(matriz,matriz[2][0],matriz[2][4]);
+        long inicio = System.currentTimeMillis();         
         LinkedList<Nodo> ruta=estrella.busquedaEstrella();
+        long fin = System.currentTimeMillis();
         System.out.println("Ruta obtenida");
         System.out.print("("+ruta.getFirst().getX()+","+ruta.getFirst().getY()+")");
         for (int i = 1; i < ruta.size(); i++) {
             Nodo n=ruta.get(i);
             System.out.print("-("+n.getX()+","+n.getY()+")");
         }
-        System.out.println("");
+        System.out.printf("\n\nTiempo de ejecución: %f\n",(double) ((fin - inicio)/1000));
     }
     
     public static void imprimirMatriz(Nodo matriz[][]){
