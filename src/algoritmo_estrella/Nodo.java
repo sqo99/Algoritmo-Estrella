@@ -5,9 +5,10 @@ package algoritmo_estrella;
  * @author Suriel
  */
 /* Clase Nodo, cada nodo tiene un tipo: muro(#), espacio libre(o), entrada(I), salida(S).
- * Un atributo booleano para saber si ya fue visitado.
+ * Un atributo tipo entero para G(distancia hacia el punto de inicio), H(distancia Manhattan).
+ * y F(G+H)
  * Sus coordenadas x, y.
- * Y su lista de nodos adyacentes w.*/
+ * Y su nodo padre P.*/
 public class Nodo {
     private char tipo;
     private int x;
@@ -15,7 +16,7 @@ public class Nodo {
     private int F;
     private int G;
     private int H;
-    private Nodo p;
+    private Nodo P;
 
     public Nodo(char tipo) {
         this.tipo = tipo;
@@ -70,11 +71,11 @@ public class Nodo {
     }
 
     public Nodo getP() {
-        return p;
+        return P;
     }
 
     public void setP(Nodo p) {
-        this.p = p;
+        this.P = p;
     }
     
 }

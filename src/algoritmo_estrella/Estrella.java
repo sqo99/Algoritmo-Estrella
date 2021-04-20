@@ -6,10 +6,9 @@ import java.util.LinkedList;
  *
  * @author Suriel
  */
-/* Clase BFS, la cual ejecutará el algoritmo de búsqueda en anchura.
- * En ella tenemos como atributo a la matriz, el nodo de entrada y salida
- * y a la lista v donde cada nodo de dicha lista,
- * contiene a su vez una lista de adyacentes.*/
+/* Clase Estrella, la cual ejecutará el algoritmo de búsqueda estrella.
+ * En ella tenemos como atributo a la matriz, el nodo de entrada y salida.
+ * Una lista de cerrados y una de abiertos.*/
 public class Estrella {
     private Nodo matriz[][];
     private Nodo entrada, salida;
@@ -26,31 +25,47 @@ public class Estrella {
     
     // Implementación del algoritmo estrella. 
     public LinkedList<Nodo> busquedaEstrella(){
-        int i,j;
-        int costoA=10;
-        int costoD=14;
+        int i,j;// Variables i,j para el movimiento de los nodos adyacentes.
+        int costoA=10;// Costo de movimientos arriba-abajo.
+        int costoD=14;// Costo de movimientos en diagonal.
+        // Variables r,c para llevar el control de la posición actual en la matriz.
         int r=entrada.getX();
         int c=entrada.getY();
-        cerrados.add(matriz[r][c]);
+        // Agregamos el nodo de entrada a la lista de cerrados.
+        cerrados.add(entrada);
+        // Imprimimos la matriz de entrada.
+        System.out.println("Matriz de entrada");
+        imprimirMatriz();
+        // Ciclo que se ejecuta hasta que se rompe con break. Esto se da
+        // cuando se llega al nodo de salida.
         while(true){
-            //abiertos.add(matriz[r][c]);
             // Nos movemos hacia la esquina superior izquierda.
             i=r-1;
             j=c-1;
             // Comparamos que las variables i,j no se salgan fuera del rango de la matriz.
             if((i>-1 && i<matriz.length) && (j>-1 && j<matriz[0].length)){
-                // Comprobamos si el nodo en la posición i,j ha sido visitado y si es distinto de una pared.
+                // Comprobamos si el nodo adyacente de la posición i,j se encuentra en la lista de abiertos
+                // y de cerrados, y si es distinto de una pared.
                 if(!abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
-                    matriz[i][j].setP(matriz[r][c]);
-                    matriz[i][j].setG(costoD);
+                    matriz[i][j].setP(matriz[r][c]);// Asignamos el nodo padre al nodo adyacente que se está analizando.
+                    matriz[i][j].setG(costoD);// Asignamos G al nodo adyacente.
+                    // Calculamos y asignamos la distancia manjattan al nodo adyacente.
                     matriz[i][j].setH(distanciaManhattan(matriz[i][j], salida));
+                    // Asignamos F al nodo adyacente.
                     matriz[i][j].setF(matriz[i][j].getG()+matriz[i][j].getH());
+                    // Añadimos el nodo adyacente i,j a la lista de abiertos.
                     abiertos.add(matriz[i][j]);
+                    // Si el nodo adyacente i,j es igual al nodo de salida, rompemos el ciclo con break.
                     if(matriz[i][j] == salida)
                         break;
+                // Comprobamos si el nodo i,j se encuentra en la lista de abiertos pero no en la de cerrados,
+                // de igual forma comprobamos que no sea un muro.
                 }else if(abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
+                    // Si es así, se procederá a evaluar si el valor en G del vecino es mejor.
                     int aux=matriz[i][j].getG()+costoD;
+                    // Evaluamos si el valor G del vecino es mejor.
                     if(aux<matriz[i][j].getG()){
+                        // Si es así, actualizamos el valor G del vecino y actualizamos el padre.
                         matriz[i][j].setG(aux);
                         matriz[i][j].setP(matriz[r][c]);
                     }
@@ -60,7 +75,6 @@ public class Estrella {
             i=r-1;
             j=c;
             if((i>-1 && i<matriz.length) && (j>-1 && j<matriz[0].length)){
-                // Comprobamos si el nodo en la posición i,j ha sido visitado y si es distinto de una pared.
                 if(!abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
                     matriz[i][j].setP(matriz[r][c]);
                     matriz[i][j].setG(costoA);
@@ -81,7 +95,6 @@ public class Estrella {
             i=r-1;
             j=c+1;
             if((i>-1 && i<matriz.length) && (j>-1 && j<matriz[0].length)){
-                // Comprobamos si el nodo en la posición i,j ha sido visitado y si es distinto de una pared.
                 if(!abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
                     matriz[i][j].setP(matriz[r][c]);
                     matriz[i][j].setG(costoD);
@@ -102,7 +115,6 @@ public class Estrella {
             i=r;
             j=c+1;
             if((i>-1 && i<matriz.length) && (j>-1 && j<matriz[0].length)){
-                // Comprobamos si el nodo en la posición i,j ha sido visitado y si es distinto de una pared.
                 if(!abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
                     matriz[i][j].setP(matriz[r][c]);
                     matriz[i][j].setG(costoA);
@@ -123,7 +135,6 @@ public class Estrella {
             i=r+1;
             j=c+1;
             if((i>-1 && i<matriz.length) && (j>-1 && j<matriz[0].length)){
-                // Comprobamos si el nodo en la posición i,j ha sido visitado y si es distinto de una pared.
                 if(!abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
                     matriz[i][j].setP(matriz[r][c]);
                     matriz[i][j].setG(costoD);
@@ -144,7 +155,6 @@ public class Estrella {
             i=r+1;
             j=c;
             if((i>-1 && i<matriz.length) && (j>-1 && j<matriz[0].length)){
-                // Comprobamos si el nodo en la posición i,j ha sido visitado y si es distinto de una pared.
                 if(!abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
                     matriz[i][j].setP(matriz[r][c]);
                     matriz[i][j].setG(costoA);
@@ -165,7 +175,6 @@ public class Estrella {
             i=r+1;
             j=c-1;
             if((i>-1 && i<matriz.length) && (j>-1 && j<matriz[0].length)){
-                // Comprobamos si el nodo en la posición i,j ha sido visitado y si es distinto de una pared.
                 if(!abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
                     matriz[i][j].setP(matriz[r][c]);
                     matriz[i][j].setG(costoD);
@@ -186,7 +195,6 @@ public class Estrella {
             i=r;
             j=c-1;
             if((i>-1 && i<matriz.length) && (j>-1 && j<matriz[0].length)){
-                // Comprobamos si el nodo en la posición i,j ha sido visitado y si es distinto de una pared.
                 if(!abiertos.contains(matriz[i][j]) && !cerrados.contains(matriz[i][j]) && matriz[i][j].getTipo()!='#'){
                     matriz[i][j].setP(matriz[r][c]);
                     matriz[i][j].setG(costoA);
@@ -203,15 +211,17 @@ public class Estrella {
                     }
                 }
             }
-            //abiertos.remove(matriz[r][c]);
-            Nodo menor=buscarFmenor();
-            cerrados.add(menor);
-            abiertos.remove(menor);
+            Nodo menor=buscarFmenor();// Se busca el nodo con valor menor en F.
+            cerrados.add(menor);// Se asigna el menor a la lista de cerrados.
+            abiertos.remove(menor);// Se eliminar el menor de la lista de abiertos.
+            // Se obtiene la posición del último nodo ingresado en la lista de cerrados.
             r=cerrados.getLast().getX();
             c=cerrados.getLast().getY();
+            // Imprimimos la lista de cerrados y abiertos y la posición actual.
             imprimirListas(r,c);
+            // Imprimimos la matriz en cada iteración.
+            System.out.println("Matriz después de recorrer los nodos adyacentes");
             imprimirMatriz();
-            System.out.println("\n");
         }
         Nodo menor=buscarFmenor();
         cerrados.add(menor);
@@ -219,15 +229,17 @@ public class Estrella {
         r=cerrados.getLast().getX();
         c=cerrados.getLast().getY();
         imprimirListas(r,c);
-        imprimirMatriz();
-        System.out.println("\n");
-        return backTracking();
+        System.out.println("Matriz después de recorrer los nodos adyacentes");
+        imprimirMatriz();        
+        return backTracking();// Ejecutamos y retornamos la ruta obtenida por el backtracking.
     }
     
+    // Función para obtener la distancia Manhattan.
     public int distanciaManhattan(Nodo n1, Nodo n2){
         return (Math.abs(n1.getX()-n2.getX())+Math.abs(n1.getY()-n2.getY()))*10;
     }
     
+    // Función para buscar el nodo con el valor menor en F.
     public Nodo buscarFmenor(){
         Nodo menor=abiertos.getFirst();
         for (int i = 1; i < abiertos.size(); i++) {
@@ -241,16 +253,14 @@ public class Estrella {
     public LinkedList<Nodo> backTracking(){
         // Creamos una lista (ruta) donde guardaremos la ruta obtenida.
         LinkedList<Nodo> ruta=new LinkedList();
-        // Añadimos a la lista el último nodo adyacente en w, del último nodo
-        // en la lista v, ya que en esa posición siempre quedará el nodo de salida.
+        // Añadimos a la lista el último nodo de la lista de cerrados.
         ruta.add(cerrados.getLast());
-        //ruta.add(cerrados.getLast().getP());
-        // Ejecutamos un ciclo que recorrerá la lista v de fin a inicio.
+        // Ejecutamos un ciclo que recorrerá la lista de cerrados de fin a inicio.
         for (int i = cerrados.size()-1; i > 0; i--) {
-            // Verificamos si la lista de adyacente w en cada nodo v(i),
-            // contiene al último nodo ingresado a la ruta.            
+            // Verificamos si el ultimo nodo de la ruta es igual al nodo de la
+            // lista de cerrados en la posición i.
             if(cerrados.get(i)==ruta.getLast()){
-                // Añadimos a la ruta el nodo v(i).
+                // Añadimos a la ruta, el nodo padre de la lista de cerrados en la posición i.
                 ruta.add(cerrados.get(i).getP());
             }
         }
@@ -258,10 +268,10 @@ public class Estrella {
         return ruta;
     }
     
+    // Función para imprimir las listas de cerrados y abiertos, así como la posición actual.
     public void imprimirListas(int r, int c){
         System.out.println("------------------------");
         System.out.println("Posición actual: ("+r+","+c+")");
-        //System.out.println("Lista de abiertos");
         System.out.println("Abiertos\tP");
         for (int i = 0; i < abiertos.size(); i++) {
             Nodo n=abiertos.get(i);
@@ -270,7 +280,6 @@ public class Estrella {
             else
                 System.out.println("("+n.getX()+","+n.getY()+")");
         }
-        //System.out.println("Lista de cerrados");
         System.out.println("Cerrados\tP");
         for (int i = 0; i < cerrados.size(); i++) {
             Nodo n=cerrados.get(i);
@@ -281,17 +290,57 @@ public class Estrella {
         }
     }
     
+    // Función que da formato para la impresión de la matriz.
     public void imprimirMatriz(){
-        System.out.println("Matriz después de recorrer los nodos adyacentes");
         for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < matriz[i].length; j++) {
+            int tam=matriz[i].length;
+            for (int j = 0; j < tam; j++) {
                 Nodo n=matriz[i][j];
-                System.out.printf("(%d,%d)|%2c|%2d|%2d|%2d\t",n.getX(),n.getY(),n.getTipo(),n.getG(),n.getH(),n.getF());
-                /*if(n.getF()!=0)
-                    System.out.print("("+n.getX()+","+n.getY()+")"+"|"+n.getTipo()+"|"+n.getG()+"|"+n.getH()+"|"+n.getF()+"\t");
-                else
-                    System.out.print("("+n.getX()+","+n.getY()+")"+"|"+n.getTipo()+"|"+n.getG()+"0|"+n.getH()+"0|"+n.getF()+"0\t");
-                */
+                String aux="("+n.getX()+","+n.getY()+")";
+                aux=String.format("%5s", aux);
+                System.out.print(" "+aux+" ");
+                if(j<tam-1)
+                    System.out.print("|");
+            }
+            System.out.println("");
+            for (int j = 0; j < tam; j++) {
+                Nodo n=matriz[i][j];
+                System.out.print("   "+n.getTipo()+"  ");
+                if(j<tam-1)
+                    System.out.print(" |");
+            }
+            System.out.println("");
+            for (int j = 0; j < tam; j++) {
+                Nodo n=matriz[i][j];
+                String aux=n.getG()+"";
+                aux=String.format("%2s", aux);
+                System.out.print("  "+aux+"   ");
+                if(j<tam-1)
+                    System.out.print("|");
+            }
+            System.out.println("");
+            for (int j = 0; j < tam; j++) {
+                Nodo n=matriz[i][j];
+                String aux=n.getH()+"";
+                aux=String.format("%2s", aux);
+                System.out.print("  "+aux+"   ");
+                if(j<tam-1)
+                    System.out.print("|");
+            }
+            System.out.println("");
+            for (int j = 0; j < tam; j++) {
+                Nodo n=matriz[i][j];
+                String aux=n.getF()+"";
+                aux=String.format("%2s", aux);
+                System.out.print("  "+aux+"   ");
+                if(j<tam-1)
+                    System.out.print("|");
+            }
+            System.out.println("");
+            if(i<matriz.length-1){
+                for (int j = 0; j < tam; j++) {
+                    System.out.print("--------");
+                }
             }
             System.out.println();
         }
